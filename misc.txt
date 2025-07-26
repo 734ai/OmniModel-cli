@@ -1,0 +1,18 @@
+## OmniModel CLI
+
+## “One tool to query them all.”
+
+📝 Short Description
+OmniModel CLI is a unified, extensible command‑line interface that lets you interact with any major LLM or multimodal model—from Google Gemini and xAI Grok, to OpenAI’s GPT series, Anthropic’s Claude, and beyond—using a single, consistent syntax. Plug in API keys or local endpoints for each model, swap between them on the fly, and build cross‑model workflows, automations, and agent pipelines without ever leaving your terminal.
+
+Key Differentiators
+Multi‑Model Support: One CLI, dozens of back ends (Gemini, Grok, GPT-4, Claude, Llama, Mistral…).
+
+Swappable Profiles: Define model endpoints in ~/.omniform/config.yml—use local Ollama, Vertex AI, Azure OpenAI, or self‑hosted.
+
+Unified Commands: omniform chat, omniform edit, omniform code, omniform multimodal work the same across providers.
+
+Plugin System: Add new models or tools via a simple Python or Node plugin spec.
+
+MCP‑Ready: Hook into your own Memory+Tool-chain servers for agent orchestration.
+
