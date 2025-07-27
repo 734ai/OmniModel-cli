@@ -1,9 +1,4 @@
 # OmniModel CLI
-
-[![OmniModel CLI CI](https://github.com/omnimodel/omniform-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/omnimodel/omniform-cli/actions/workflows/ci.yml)
-
-![OmniModel CLI Screenshot](./docs/assets/omniform-screenshot.png)
-
 **"One tool to query them all."**
 
 This repository contains the OmniModel CLI, a unified, extensible command‑line interface that lets you interact with any major LLM or multimodal model—from Google Gemini and xAI Grok, to OpenAI's GPT series, Anthropic's Claude, and beyond—using a single, consistent syntax.
