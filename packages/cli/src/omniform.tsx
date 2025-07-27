@@ -85,8 +85,12 @@ async function relaunchWithAdditionalArgs(additionalArgs: string[]) {
   process.exit(0);
 }
 import { runAcpPeer } from './acp/acpPeer.js';
+import { displayBanner } from './utils/banner.js';
 
 export async function main() {
+  // Display OMNINO CLI banner
+  displayBanner();
+  
   const workspaceRoot = process.cwd();
   const settings = loadSettings(workspaceRoot);
 
