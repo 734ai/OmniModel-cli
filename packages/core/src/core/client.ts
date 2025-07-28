@@ -28,7 +28,7 @@ import { ReadManyFilesTool } from '../tools/read-many-files.js';
 import { getResponseText } from '../utils/generateContentResponseUtilities.js';
 import { checkNextSpeaker } from '../utils/nextSpeakerChecker.js';
 import { reportError } from '../utils/errorReporting.js';
-import { GeminiChat } from './geminiChat.js';
+import { OmniChat } from './omniChat.js';
 import { retryWithBackoff } from '../utils/retry.js';
 import { getErrorMessage } from '../utils/errors.js';
 import { isFunctionResponse } from '../utils/messageInspectors.js';
@@ -85,7 +85,7 @@ export function findIndexAfterFraction(
 }
 
 export class ModelClient {
-  private chat?: GeminiChat;
+  private chat?: OmniChat;
   private contentGenerator?: ContentGenerator;
   private embeddingModel: string;
   private generateContentConfig: GenerateContentConfig = {
@@ -141,7 +141,7 @@ export class ModelClient {
     this.getChat().addHistory(content);
   }
 
-  getChat(): GeminiChat {
+  getChat(): OmniChat {
     if (!this.chat) {
       throw new Error('Chat not initialized');
     }
@@ -235,7 +235,7 @@ export class ModelClient {
     return initialParts;
   }
 
-  async startChat(extraHistory?: Content[]): Promise<GeminiChat> {
+  async startChat(extraHistory?: Content[]): Promise<OmniChat> {
     const envParts = await this.getEnvironment();
     const toolRegistry = await this.config.getToolRegistry();
     const toolDeclarations = toolRegistry.getFunctionDeclarations();
@@ -264,7 +264,7 @@ export class ModelClient {
             },
           }
         : this.generateContentConfig;
-      return new GeminiChat(
+      return new OmniChat(
         this.config,
         this.getContentGenerator(),
         {

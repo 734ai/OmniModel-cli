@@ -1,158 +1,231 @@
 # OmniModel CLI
-**"One tool to query them all."**
 
-This repository contains the OmniModel CLI, a unified, extensible command‑line interface that lets you interact with any major LLM or multimodal model—from Google Gemini and xAI Grok, to OpenAI's GPT series, Anthropic's Claude, and beyond—using a single, consistent syntax.
+**One tool to query them all** - A unified command-line interface for multiple AI models including OpenAI GPT, Anthropic Claude, Google Gemini, xAI Grok, and local models via Ollama.
 
-With the OmniModel CLI you can:
+![OmniModel CLI in Action](docs/omni-cli-demo.png)
 
-- Query and edit large codebases across multiple AI models with unified commands
-- Generate new apps from PDFs or sketches, using multimodal capabilities across providers
-- Automate operational tasks with swappable AI backends
-- Use tools and MCP servers to connect new capabilities
-- Build cross‑model workflows, automations, and agent pipelines
-- Switch between local, cloud, and self-hosted model endpoints seamlessly
+*OmniModel CLI displaying its comprehensive help interface with multi-provider AI support*
 
-## Key Features
+## 🚀 Quick Start
 
-- **Multi‑Model Support**: One CLI, dozens of back ends (Gemini, Grok, GPT-4, Claude, Llama, Mistral…)
-- **Swappable Profiles**: Define model endpoints in `~/.omniform/config.yml`—use local Ollama, Vertex AI, Azure OpenAI, or self‑hosted
-- **Unified Commands**: `omniform chat`, `omniform edit`, `omniform code`, `omniform multimodal` work the same across providers
-- **Plugin System**: Add new models or tools via a simple Python or Node plugin spec
-- **MCP‑Ready**: Hook into your own Memory+Tool-chain servers for agent orchestration
-
-## Quickstart
-
-You have two options to install OmniModel CLI.
-
-### With Node
-
-1. **Prerequisites:** Ensure you have [Node.js version 20](https://nodejs.org/en/download) or higher installed.
-2. **Run the CLI:** Execute the following command in your terminal:
-
-   ```bash
-   npx @omnimodel/cli
-   ```
-
-   Or install it globally:
-
-   ```bash
-   npm install -g @omnimodel/cli
-   ```
-
-   Then, run the CLI from anywhere:
-
-   ```bash
-   omniform
-   ```
-
-### Configuration
-
-3. **Pick a color theme**
-4. **Configure your models:** Set up API keys for the models you want to use:
-
-#### OpenAI API
+### Installation
 
 ```bash
-export OPENAI_API_KEY="your_openai_api_key"
+npm install -g @omnimodel/cli
 ```
 
-#### Anthropic Claude API
+### Basic Usage
 
 ```bash
-export ANTHROPIC_API_KEY="your_anthropic_api_key"
+# Start interactive chat
+omniform chat
+
+# Ask a quick question
+omniform "What is the capital of France?"
+
+# Use a specific model
+omniform --model gpt-4 "Explain quantum computing"
+
+# Work with code
+omniform code --file script.py "Add error handling to this function"
+
+# Multi-modal analysis (images, documents)
+omniform multimodal --image photo.jpg "What do you see in this image?"
 ```
 
-#### Google Gemini API
+## 🎯 Features
+
+- **Multi-Model Support**: OpenAI GPT, Anthropic Claude, Google Gemini, xAI Grok, Ollama
+- **Interactive Chat**: Full-featured terminal chat interface
+- **Code Analysis**: Intelligent code review and modification
+- **Multi-Modal**: Support for images, documents, and mixed content
+- **Provider Switching**: Seamlessly switch between AI providers
+- **Configuration Management**: Flexible configuration system
+- **MCP Integration**: Model Context Protocol support for tool integration
+
+## 📋 Supported Models
+
+| Provider | Models | Features |
+|----------|--------|----------|
+| **OpenAI** | GPT-4, GPT-4 Turbo, GPT-3.5 | Chat, Code, Vision |
+| **Anthropic** | Claude 3.5 Sonnet, Claude 3 Haiku | Chat, Code, Analysis |
+| **Google** | Gemini Pro, Gemini Flash | Chat, Vision, Multi-modal |
+| **xAI** | Grok | Chat, Real-time data |
+| **Ollama** | Llama, Mistral, CodeLlama | Local models |
+
+## ⚙️ Configuration
+
+### First Run Setup
 
 ```bash
-export GOOGLE_API_KEY="your_google_api_key"
+# Interactive configuration wizard
+omniform config setup
+
+# Set API keys
+omniform config set openai.api_key YOUR_API_KEY
+omniform config set anthropic.api_key YOUR_API_KEY
+omniform config set google.api_key YOUR_API_KEY
 ```
 
-#### xAI Grok API
+### Configuration File
+
+Configuration is stored at `~/.omniform/config.yml`:
+
+```yaml
+providers:
+  openai:
+    api_key: your-api-key
+    default_model: gpt-4
+  anthropic:
+    api_key: your-api-key
+    default_model: claude-3-5-sonnet-20241022
+  google:
+    api_key: your-api-key
+    default_model: gemini-pro
+
+preferences:
+  default_provider: openai
+  enable_streaming: true
+  max_tokens: 4096
+```
+
+## 🛠️ Commands
+
+### Chat Commands
 
 ```bash
-export XAI_API_KEY="your_xai_api_key"
+# Interactive chat session
+omniform chat
+
+# Quick query
+omniform "Your question here"
+
+# Use specific model
+omniform --model claude-3-5-sonnet "Your question"
+
+# Continue previous conversation
+omniform --continue "Follow-up question"
 ```
 
-#### Local Models (Ollama)
+### Code Commands
 
 ```bash
-export OLLAMA_HOST="http://localhost:11434"
+# Analyze code file
+omniform code --file script.py
+
+# Code review
+omniform code --review --file app.js
+
+# Generate code
+omniform code --generate "Create a REST API in Node.js"
+
+# Refactor code
+omniform code --refactor --file legacy.py "Modernize this code"
 ```
 
-You are now ready to use the OmniModel CLI!
-
-## Examples
-
-Once the CLI is running, you can start interacting with multiple AI models from your shell.
-
-### Basic Chat
+### Multi-Modal Commands
 
 ```bash
-omniform chat "Explain quantum computing"
+# Analyze image
+omniform multimodal --image photo.jpg "Describe this image"
+
+# Document analysis
+omniform multimodal --file document.pdf "Summarize this document"
+
+# Combined analysis
+omniform multimodal --image chart.png --file data.csv "Explain the correlation"
 ```
 
-### Code Generation
+### Configuration Commands
 
 ```bash
-omniform code "Create a Python web scraper using requests and BeautifulSoup"
+# Show current configuration
+omniform config show
+
+# Set configuration values
+omniform config set provider.model_name value
+
+# List available models
+omniform models list
+
+# Test API connections
+omniform config test
 ```
 
-### File Editing
+## 🔧 Advanced Usage
+
+### Model Context Protocol (MCP)
+
+OmniModel CLI supports MCP for extended functionality:
 
 ```bash
-omniform edit src/main.py --prompt "Add error handling to this function"
+# List available MCP servers
+omniform mcp list
+
+# Connect to MCP server
+omniform mcp connect server-name
+
+# Use MCP tools in chat
+omniform chat --mcp-tools
 ```
 
-### Model Switching
+### Scripting and Automation
 
 ```bash
-omniform chat --model gpt-4 "What's the weather like?"
-omniform chat --model claude-3 "What's the weather like?"
-omniform chat --model gemini-2.5-pro "What's the weather like?"
+# Batch processing
+cat questions.txt | omniform --batch
+
+# JSON output for scripting
+omniform --output json "Your question"
+
+# Custom prompts and templates
+omniform --template code-review --file app.py
 ```
 
-### Multimodal Input
+## 🏗️ Development
+
+### Building from Source
 
 ```bash
-omniform multimodal image.png "Describe this image and write Python code to recreate it"
+git clone https://github.com/734ai/OmniModel-cli.git
+cd OmniModel-cli
+npm install
+npm run build
+npm run start
 ```
 
-## Documentation
+### Project Structure
 
-- [Installation Guide](./docs/installation.md)
-- [Configuration](./docs/configuration.md)
-- [Model Profiles](./docs/model-profiles.md)
-- [Plugin Development](./docs/plugin-development.md)
-- [MCP Integration](./docs/mcp-integration.md)
-- [API Reference](./docs/api-reference.md)
+```
+OmniModel CLI/
+├── packages/
+│   ├── cli/          # CLI interface and commands
+│   └── core/         # Core functionality and providers
+├── scripts/          # Build and development scripts
+└── integration-tests/ # Integration tests
+```
 
-## Supported Models
+## 📚 Documentation
 
-### Cloud APIs
-- OpenAI (GPT-4, GPT-3.5, GPT-4 Turbo, GPT-4o)
-- Anthropic (Claude 3 Haiku, Sonnet, Opus)
-- Google (Gemini 1.5 Pro, Gemini 2.5 Pro)
-- xAI (Grok-1, Grok-2)
-- Cohere (Command R, Command R+)
-- Mistral AI
+- [Configuration Guide](docs/configuration.md)
+- [Provider Setup](docs/providers.md)
+- [MCP Integration](docs/mcp.md)
+- [API Reference](docs/api.md)
 
-### Local Models
-- Ollama (Llama 3, Mistral, CodeLlama, etc.)
-- LM Studio
-- GPT4All
-- Text Generation WebUI
+## 🤝 Contributing
 
-### Enterprise/Self-Hosted
-- Azure OpenAI
-- Google Vertex AI
-- AWS Bedrock
-- Custom endpoints
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
-## Contributing
+## 📄 License
 
-We welcome contributions! Please see our [Contributing Guide](./CONTRIBUTING.md) for details.
+Apache License 2.0 - see [LICENSE](LICENSE) for details.
 
-## License
+## 🆘 Support
 
-This project is licensed under the Apache License 2.0 - see the [LICENSE](./LICENSE) file for details.
+- **Issues**: [GitHub Issues](https://github.com/734ai/OmniModel-cli/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/734ai/OmniModel-cli/discussions)
+- **Documentation**: [Wiki](https://github.com/734ai/OmniModel-cli/wiki)
+
+---
+
+**OmniModel CLI** - Bringing all AI models under one unified interface.

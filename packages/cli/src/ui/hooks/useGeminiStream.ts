@@ -26,7 +26,7 @@ import {
   UnauthorizedError,
   UserPromptEvent,
   DEFAULT_GEMINI_FLASH_MODEL,
-} from '@google/gemini-cli-core';
+} from '@omnimodel/cli-core';
 import { type Part, type PartListUnion, FinishReason } from '@google/genai';
 import {
   StreamingState,
@@ -107,7 +107,7 @@ export const useGeminiStream = (
   const logger = useLogger();
   const gitService = useMemo(() => {
     if (!config.getProjectRoot()) {
-      return;
+      return undefined;
     }
     return new GitService(config.getProjectRoot());
   }, [config]);

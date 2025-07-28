@@ -23,7 +23,7 @@ import {
   UnauthorizedError,
   toFriendlyError,
 } from '../utils/errors.js';
-import { GeminiChat } from './geminiChat.js';
+import { OmniChat } from './omniChat.js';
 
 // Define a structure for tools passed to the server
 export interface ServerTool {
@@ -165,7 +165,7 @@ export class Turn {
   private debugResponses: GenerateContentResponse[];
 
   constructor(
-    private readonly chat: GeminiChat,
+    private readonly chat: OmniChat,
     private readonly prompt_id: string,
   ) {
     this.pendingToolCalls = [];

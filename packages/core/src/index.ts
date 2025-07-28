@@ -7,6 +7,7 @@
 // Export config
 export * from './config/config.js';
 export * from './config/configManager.js';
+export * from './config/models.js';
 
 // Export Core Logic
 export * from './core/client.js';
@@ -69,10 +70,10 @@ export * from './tools/mcp-tool.js';
 
 // MCP OAuth
 export { MCPOAuthProvider } from './mcp/oauth-provider.js';
-export {
+export { MCPOAuthTokenStorage } from './mcp/oauth-token-storage.js';
+export type {
   MCPOAuthToken,
   MCPOAuthCredentials,
-  MCPOAuthTokenStorage,
 } from './mcp/oauth-token-storage.js';
 export type { MCPOAuthConfig } from './mcp/oauth-provider.js';
 export type {

@@ -230,7 +230,7 @@ Use this tool when the user's query implies needing the content of several files
     const paramUseDefaultExcludes = params.useDefaultExcludes !== false;
     const geminiIgnorePatterns = this.config
       .getFileService()
-      .getOmniIgnorePatterns();
+      .getOmniformIgnorePatterns();
     const finalExclusionPatternsForDescription: string[] =
       paramUseDefaultExcludes
         ? [...DEFAULT_EXCLUDES, ...paramExcludes, ...geminiIgnorePatterns]
@@ -240,7 +240,7 @@ Use this tool when the user's query implies needing the content of several files
 
     // Add a note if .geminiignore patterns contributed to the final list of exclusions
     if (geminiIgnorePatterns.length > 0) {
-      const geminiPatternsInEffect = geminiIgnorePatterns.filter((p) =>
+      const geminiPatternsInEffect = geminiIgnorePatterns.filter((p: string) =>
         finalExclusionPatternsForDescription.includes(p),
       ).length;
       if (geminiPatternsInEffect > 0) {
@@ -321,7 +321,7 @@ Use this tool when the user's query implies needing the content of several files
               entries.map((p) => path.relative(this.config.getTargetDir(), p)),
               {
                 respectGitIgnore: true,
-                respectGeminiIgnore: false,
+                respectOmniformIgnore: false,
               },
             )
             .map((p) => path.resolve(this.config.getTargetDir(), p))
@@ -336,7 +336,7 @@ Use this tool when the user's query implies needing the content of several files
               ),
               {
                 respectGitIgnore: false,
-                respectGeminiIgnore: true,
+                respectOmniformIgnore: true,
               },
             )
             .map((p) => path.resolve(this.config.getTargetDir(), p))

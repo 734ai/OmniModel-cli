@@ -16,7 +16,7 @@ import {
   Config,
   ModelClient,
   getCachedEncodingForBuffer,
-} from '@google/gemini-cli-core';
+} from '@omnimodel/cli-core';
 import { type PartListUnion } from '@google/genai';
 import { formatMemoryUsage } from '../utils/formatters.js';
 import { isBinary } from '../utils/textUtils.js';

@@ -60,7 +60,7 @@ import {
   AuthType,
   type OpenFiles,
   ideContext,
-} from '@google/gemini-cli-core';
+} from '@omnimodel/cli-core';
 import { validateAuthMethod } from '../config/auth.js';
 import { useLogger } from './hooks/useLogger.js';
 import { StreamingContext } from './contexts/StreamingContext.js';
@@ -78,7 +78,7 @@ import {
   isProQuotaExceededError,
   isGenericQuotaExceededError,
   UserTierId,
-} from '@google/gemini-cli-core';
+} from '@omnimodel/cli-core';
 import { checkForUpdates } from './utils/updateCheck.js';
 import ansiEscapes from 'ansi-escapes';
 import { OverflowProvider } from './contexts/OverflowContext.js';
@@ -489,7 +489,7 @@ const App = ({ config, settings, startupWarnings = [], version }: AppProps) => {
     const isValidEditor = isEditorAvailable(editorType);
     if (!isValidEditor) {
       openEditorDialog();
-      return;
+      return undefined;
     }
     return editorType as EditorType;
   }, [settings, openEditorDialog]);
@@ -603,7 +603,7 @@ const App = ({ config, settings, startupWarnings = [], version }: AppProps) => {
     // skip refreshing Static during first mount
     if (isInitialMount.current) {
       isInitialMount.current = false;
-      return;
+      return undefined;
     }
 
     // debounce so it doesn't fire up too often during resize

@@ -9,7 +9,7 @@ import { vi } from 'vitest';
 import { spawn } from 'child_process';
 import type { ChildProcessWithoutNullStreams } from 'child_process';
 import { useShellCommandProcessor } from './shellCommandProcessor';
-import { Config, ModelClient } from '@google/gemini-cli-core';
+import { Config, ModelClient } from '@omnimodel/cli-core';
 import * as fs from 'fs';
 import EventEmitter from 'events';
 import { ToolCallStatus } from '../types';
@@ -27,7 +27,7 @@ vi.mock('os', () => ({
   tmpdir: () => '/tmp',
   homedir: () => '/home/user',
 }));
-vi.mock('@google/gemini-cli-core');
+vi.mock('@omnimodel/cli-core');
 vi.mock('../utils/textUtils.js', () => ({
   isBinary: vi.fn(),
 }));

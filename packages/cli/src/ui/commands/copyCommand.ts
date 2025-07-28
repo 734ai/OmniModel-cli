@@ -21,7 +21,7 @@ export const copyCommand: SlashCommand = {
 
     // Get the last message from the AI (model role)
     const lastAiMessage = history
-      ? history.filter((item) => item.role === 'model').pop()
+      ? history.filter((item: any) => item.role === 'model').pop()
       : undefined;
 
     if (!lastAiMessage) {
@@ -33,8 +33,8 @@ export const copyCommand: SlashCommand = {
     }
     // Extract text from the parts
     const lastAiOutput = lastAiMessage.parts
-      ?.filter((part) => part.text)
-      .map((part) => part.text)
+      ?.filter((part: any) => part.text)
+      .map((part: any) => part.text)
       .join('');
 
     if (lastAiOutput) {

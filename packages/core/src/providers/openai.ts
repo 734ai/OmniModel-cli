@@ -5,7 +5,7 @@
  */
 
 import OpenAI from 'openai';
-import { ModelProvider, type ProviderConfig, type Message, type ModelResponse, type StreamChunk, type Model } from '../types.js';
+import { ModelProvider, type ProviderConfig, type Message, type ModelResponse, type StreamChunk, type Model } from './types.js';
 
 export class OpenAIProvider extends ModelProvider {
   private client?: OpenAI;

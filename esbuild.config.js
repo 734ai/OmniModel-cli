@@ -21,6 +21,14 @@ esbuild
     outfile: 'bundle/omniform.js',
     platform: 'node',
     format: 'esm',
+    external: [
+      'react-devtools-core',
+      '@modelcontextprotocol/sdk/client/index.js',
+      '@modelcontextprotocol/sdk/client/stdio.js',
+      '@modelcontextprotocol/sdk/client/sse.js',
+      '@modelcontextprotocol/sdk/client/streamableHttp.js',
+      '@modelcontextprotocol/sdk'
+    ],
     define: {
       'process.env.CLI_VERSION': JSON.stringify(pkg.version),
     },

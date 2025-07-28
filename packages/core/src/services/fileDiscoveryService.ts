@@ -15,29 +15,35 @@ export interface FileDiscoveryOptions {
   respectOmniformIgnore?: boolean;
 }
 
-export class FileDiscoveryService {
-  private gitIgnoreFilter: GitIgnoreFilter | null = null;
-  private omniformIgnoreFilter: GitIgnoreFilter | null = null;
-  private projectRoot: string;
+export interface FilterFilesOptions {
+  respectGitIgnore?: boolean;
+  respectOmniformIgnore?: boolean;
+}
 
-  constructor(projectRoot: string) {
-    this.projectRoot = path.resolve(projectRoot);
+export class FileDiscoveryService {
+  private gitIgnoreFilter: GitIgnoreParser | null = null;
+  private omniformIgnoreFilter: GitIgnoreParser | null = null;
+
+  constructor(public projectRoot: string) {
+    this.initialize();
+  }
+
+  private initialize(): void {
+    this.loadGitIgnore();
+    this.loadOmniformIgnore();
+  }
+
+  private loadGitIgnore(): void {
     if (isGitRepository(this.projectRoot)) {
-      const parser = new GitIgnoreParser(this.projectRoot);
-      try {
-        parser.loadGitRepoPatterns();
-      } catch (_error) {
-        // ignore file not found
-      }
-      this.gitIgnoreFilter = parser;
+      this.gitIgnoreFilter = new GitIgnoreParser(this.projectRoot);
+      this.gitIgnoreFilter.loadGitRepoPatterns();
     }
-    const gParser = new GitIgnoreParser(this.projectRoot);
-    try {
-      gParser.loadPatterns(OMNIFORM_IGNORE_FILE_NAME);
-    } catch (_error) {
-      // ignore file not found
-    }
-    this.omniformIgnoreFilter = gParser;
+  }
+
+  private loadOmniformIgnore(): void {
+    const omniformIgnorePath = path.join(this.projectRoot, OMNIFORM_IGNORE_FILE_NAME);
+    this.omniformIgnoreFilter = new GitIgnoreParser(this.projectRoot);
+    this.omniformIgnoreFilter.loadPatterns(OMNIFORM_IGNORE_FILE_NAME);
   }
 
   /**
@@ -48,16 +54,13 @@ export class FileDiscoveryService {
     options: FilterFilesOptions = {
       respectGitIgnore: true,
       respectOmniformIgnore: true,
-    },
+    }
   ): string[] {
     return filePaths.filter((filePath) => {
       if (options.respectGitIgnore && this.shouldGitIgnoreFile(filePath)) {
         return false;
       }
-      if (
-        options.respectOmniformIgnore &&
-        this.shouldOmniIgnoreFile(filePath)
-      ) {
+      if (options.respectOmniformIgnore && this.shouldOmniformIgnoreFile(filePath)) {
         return false;
       }
       return true;
@@ -75,11 +78,11 @@ export class FileDiscoveryService {
   }
 
   /**
-   * Checks if a single file should be omni-ignored
+   * Checks if a single file should be omniform-ignored
    */
-  shouldOmniIgnoreFile(filePath: string): boolean {
-    if (this.geminiIgnoreFilter) {
-      return this.geminiIgnoreFilter.isIgnored(filePath);
+  private shouldOmniformIgnoreFile(filePath: string): boolean {
+    if (this.omniformIgnoreFilter) {
+      return this.omniformIgnoreFilter.isIgnored(filePath);
     }
     return false;
   }
@@ -89,14 +92,14 @@ export class FileDiscoveryService {
    */
   shouldIgnoreFile(
     filePath: string,
-    options: FilterFilesOptions = {},
+    options: FilterFilesOptions = {}
   ): boolean {
-    const { respectGitIgnore = true, respectGeminiIgnore = true } = options;
+    const { respectGitIgnore = true, respectOmniformIgnore = true } = options;
 
     if (respectGitIgnore && this.shouldGitIgnoreFile(filePath)) {
       return true;
     }
-    if (respectGeminiIgnore && this.shouldOmniIgnoreFile(filePath)) {
+    if (respectOmniformIgnore && this.shouldOmniformIgnoreFile(filePath)) {
       return true;
     }
     return false;
@@ -105,7 +108,7 @@ export class FileDiscoveryService {
   /**
    * Returns loaded patterns from .omniformignore
    */
-  getOmniIgnorePatterns(): string[] {
-    return this.geminiIgnoreFilter?.getPatterns() ?? [];
+  getOmniformIgnorePatterns(): string[] {
+    return this.omniformIgnoreFilter?.getPatterns() ?? [];
   }
 }

@@ -422,8 +422,8 @@ export class OmniChat {
       // for both success and failure response. The actual failure is still
       // propagated by the `await streamResponse`.
       this.sendPromise = Promise.resolve(streamResponse)
-        .then(() => undefined)
-        .catch(() => undefined);
+        .then((): void => undefined)
+        .catch((): void => undefined);
 
       const result = this.processStreamResponse(
         streamResponse,

@@ -15,7 +15,7 @@ import {
   CommandKind,
   SlashCommand,
 } from '../commands/types.js';
-import { Config, FileDiscoveryService } from '@google/gemini-cli-core';
+import { Config, FileDiscoveryService } from '@omnimodel/cli-core';
 
 interface MockConfig {
   getFileFilteringOptions: () => {
@@ -28,8 +28,8 @@ interface MockConfig {
 
 // Mock dependencies
 vi.mock('fs/promises');
-vi.mock('@google/gemini-cli-core', async () => {
-  const actual = await vi.importActual('@google/gemini-cli-core');
+vi.mock('@omnimodel/cli-core', async () => {
+  const actual = await vi.importActual('@omnimodel/cli-core');
   return {
     ...actual,
     FileDiscoveryService: vi.fn(),

@@ -12,7 +12,7 @@ import {
   getErrorMessage,
   isNodeError,
   unescapePath,
-} from '@google/gemini-cli-core';
+} from '@omnimodel/cli-core';
 import {
   HistoryItem,
   IndividualToolCallDisplay,
@@ -192,13 +192,13 @@ export async function handleAtCommand({
       respectFileIgnore.respectGitIgnore &&
       fileDiscovery.shouldIgnoreFile(pathName, {
         respectGitIgnore: true,
-        respectGeminiIgnore: false,
+        respectOmniformIgnore: false,
       });
     const geminiIgnored =
       respectFileIgnore.respectGeminiIgnore &&
       fileDiscovery.shouldIgnoreFile(pathName, {
         respectGitIgnore: false,
-        respectGeminiIgnore: true,
+        respectOmniformIgnore: true,
       });
 
     if (gitIgnored || geminiIgnored) {

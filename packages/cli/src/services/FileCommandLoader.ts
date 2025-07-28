@@ -13,7 +13,7 @@ import {
   Config,
   getProjectCommandsDir,
   getUserCommandsDir,
-} from '@google/gemini-cli-core';
+} from '@omnimodel/cli-core';
 import { ICommandLoader } from './types.js';
 import {
   CommandContext,
@@ -36,8 +36,7 @@ import {
  */
 const TomlCommandDefSchema = z.object({
   prompt: z.string({
-    required_error: "The 'prompt' field is required.",
-    invalid_type_error: "The 'prompt' field must be a string.",
+    message: "The 'prompt' field is required and must be a string.",
   }),
   description: z.string().optional(),
 });

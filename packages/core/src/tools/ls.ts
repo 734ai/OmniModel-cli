@@ -263,7 +263,7 @@ export class LSTool extends BaseTool<LSToolParams, ToolResult> {
         }
         if (
           fileFilteringOptions.respectGeminiIgnore &&
-          fileDiscovery.shouldOmniIgnoreFile(relativePath)
+          fileDiscovery.shouldIgnoreFile(relativePath)
         ) {
           geminiIgnoredCount++;
           continue;

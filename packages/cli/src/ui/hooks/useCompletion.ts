@@ -16,7 +16,7 @@ import {
   Config,
   FileDiscoveryService,
   DEFAULT_FILE_FILTERING_OPTIONS,
-} from '@google/gemini-cli-core';
+} from '@omnimodel/cli-core';
 import {
   MAX_SUGGESTIONS_TO_SHOW,
   Suggestion,
@@ -125,7 +125,7 @@ export function useCompletion(
   useEffect(() => {
     if (!isActive) {
       resetCompletionState();
-      return;
+      return undefined;
     }
 
     const trimmedQuery = query.trimStart();
@@ -220,7 +220,7 @@ export function useCompletion(
         (hasTrailingSpace ||
           (rawParts.length > depth && depth > 0 && partial !== ''))
       ) {
-        const fetchAndSetSuggestions = async () => {
+        const fetchAndSetSuggestions = async (): Promise<void> => {
           setIsLoadingSuggestions(true);
           const argString = rawParts.slice(depth).join(' ');
           const results =
@@ -232,7 +232,7 @@ export function useCompletion(
           setIsLoadingSuggestions(false);
         };
         fetchAndSetSuggestions();
-        return;
+        return undefined;
       }
 
       // Command/Sub-command Completion
@@ -266,19 +266,19 @@ export function useCompletion(
         setShowSuggestions(finalSuggestions.length > 0);
         setActiveSuggestionIndex(finalSuggestions.length > 0 ? 0 : -1);
         setIsLoadingSuggestions(false);
-        return;
+        return undefined;
       }
 
       // If we fall through, no suggestions are available.
       resetCompletionState();
-      return;
+      return undefined;
     }
 
     // Handle At Command Completion
     const atIndex = query.lastIndexOf('@');
     if (atIndex === -1) {
       resetCompletionState();
-      return;
+      return undefined;
     }
 
     const partialPath = query.substring(atIndex + 1);

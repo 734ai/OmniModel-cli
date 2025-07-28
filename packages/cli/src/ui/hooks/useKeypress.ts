@@ -44,7 +44,7 @@ export function useKeypress(
 
   useEffect(() => {
     if (!isActive || !stdin.isTTY) {
-      return;
+      return undefined;
     }
 
     setRawMode(true);

@@ -19,7 +19,8 @@ import {
   MCPServerStatus,
   mcpServerRequiresOAuth,
   getErrorMessage,
-} from '@google/gemini-cli-core';
+  MCPOAuthTokenStorage,
+} from '@omnimodel/cli-core';
 import open from 'open';
 
 const COLOR_GREEN = '\u001b[32m';
@@ -138,9 +139,6 @@ const getMcpStatus = async (
     if (server?.oauth?.enabled) {
       needsAuthHint = true;
       try {
-        const { MCPOAuthTokenStorage } = await import(
-          '@google/gemini-cli-core'
-        );
         const hasToken = await MCPOAuthTokenStorage.getToken(serverName);
         if (hasToken) {
           const isExpired = MCPOAuthTokenStorage.isTokenExpired(hasToken.token);
@@ -326,7 +324,7 @@ const authCommand: SlashCommand = {
       );
 
       // Import dynamically to avoid circular dependencies
-      const { MCPOAuthProvider } = await import('@google/gemini-cli-core');
+      const { MCPOAuthProvider } = await import('@omnimodel/cli-core');
 
       // Create OAuth config for authentication (will be discovered automatically)
       const oauthConfig = server.oauth || {

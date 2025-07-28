@@ -1,0 +1,9 @@
+/**
+ * @license
+ * Copyright 2025 Muzan Sano
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * The placeholder string for shorthand argument injection in custom commands.
+ */
+export const SHORTHAND_ARGS_PLACEHOLDER = '{{args}}';

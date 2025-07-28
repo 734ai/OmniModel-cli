@@ -9,7 +9,7 @@ import { WritableStream, ReadableStream } from 'node:stream/web';
 import {
   AuthType,
   Config,
-  GeminiChat,
+  OmniChat,
   ToolRegistry,
   logToolCall,
   ToolResult,
@@ -21,7 +21,7 @@ import {
   getErrorMessage,
   isWithinRoot,
   getErrorStatus,
-} from '@google/gemini-cli-core';
+} from '@omnimodel/cli-core';
 import * as acp from './acp.js';
 import { Agent } from './acp.js';
 import { Readable, Writable } from 'node:stream';
@@ -48,7 +48,7 @@ export async function runAcpPeer(config: Config, settings: LoadedSettings) {
 }
 
 class GeminiAgent implements Agent {
-  chat?: GeminiChat;
+  chat?: OmniChat;
   pendingSend?: AbortController;
 
   constructor(
