@@ -6,7 +6,7 @@
 
 *OmniModel CLI displaying its comprehensive help interface with multi-provider AI support*
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Installation
 
@@ -33,7 +33,7 @@ omniform code --file script.py "Add error handling to this function"
 omniform multimodal --image photo.jpg "What do you see in this image?"
 ```
 
-## 🎯 Features
+## Features
 
 - **Multi-Model Support**: OpenAI GPT, Anthropic Claude, Google Gemini, xAI Grok, Ollama
 - **Interactive Chat**: Full-featured terminal chat interface
@@ -212,7 +212,7 @@ OmniModel CLI/
 - [MCP Integration](docs/mcp.md)
 - [API Reference](docs/api.md)
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
